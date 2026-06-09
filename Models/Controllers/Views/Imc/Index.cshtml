@@ -1,0 +1,46 @@
+@model CadastroAlunos.Models.Imc
+
+@{
+    ViewData["Title"] = "Cálculo de IMC";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="font-weight-light my-1">🧮 Calculadora de IMC</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Calcular" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Peso" class="form-label">Peso (ex: 75.5)</label>
+                            <input asp-for="Peso" class="form-control" type="text" placeholder="Digite o peso em kg" />
+                            <span asp-validation-for="Peso" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Altura" class="form-label">Altura (ex: 1.75)</label>
+                            <input asp-for="Altura" class="form-control" type="text" placeholder="Digite a altura em metros" />
+                            <span asp-validation-for="Altura" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 py-2 fs-5">Calcular IMC</button>
+                    </form>
+
+                    @if (Model != null && Model.Resultado > 0)
+                    {
+                        <div class="mt-4 p-3 bg-light border rounded text-center shadow-sm">
+                            <h4 class="text-secondary mb-1">Seu IMC é: <strong class="text-dark">@Model.Resultado</strong></h4>
+                            <h5 class="mb-0">Classificação: <span class="badge bg-info text-dark">@Model.Classificacao</span></h5>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
